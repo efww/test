@@ -36,6 +36,13 @@
 /public/packs
 /public/packs-test
 /node_modules
+**/node_modules/
+
+# local playground folders
+/test[0-9]*/
+/test_[0-9]*/
+/test_kanban_*/
+
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
