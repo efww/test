@@ -23,3 +23,9 @@ test("main process limits open dialog to pdf files", () => {
   assert.match(main, /filters: \[\{ name: "PDF", extensions: \["pdf"\] \}\]/);
   assert.match(main, /fs\.readFile\(filePath\)/);
 });
+
+test("preload exposes Microsoft login status without token APIs", () => {
+  assert.match(preload, /getAuthStatus/);
+  assert.match(preload, /startMicrosoftLogin/);
+  assert.doesNotMatch(preload, /token/i);
+});

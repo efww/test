@@ -22,6 +22,8 @@ const elements = {
   pageStatus: document.querySelector("#page-status"),
   zoomStatus: document.querySelector("#zoom-status"),
   readonlyStatus: document.querySelector("#readonly-status"),
+  loginButton: document.querySelector("#login-button"),
+  authStatus: document.querySelector("#auth-status"),
 };
 
 function setViewerMessage(message) {
@@ -80,18 +82,30 @@ async function openPdf() {
   }
 }
 
+function renderAuthStatus(status) {
+  elements.authStatus.textContent = status.message;
+  elements.authStatus.dataset.state = status.state;
+}
+
+async function startMicrosoftLogin() {
+  const status = await window.gateway.startMicrosoftLogin();
+  renderAuthStatus(status);
+}
+
 async function boot() {
   const info = await window.gateway.getAppInfo();
   document.querySelector("#app-name").textContent = info.name;
   document.querySelector("#app-version").textContent = info.version;
   document.querySelector("#app-platform").textContent = info.platform;
   document.querySelector("#app-build").textContent = info.buildTime;
+  renderAuthStatus(await window.gateway.getAuthStatus());
   installReadOnlyGuards({
     onBlockedAction: ({ action }) => {
       elements.readonlyStatus.textContent = `${action} 차단됨`;
     },
   });
   elements.openPdf.addEventListener("click", openPdf);
+  elements.loginButton.addEventListener("click", startMicrosoftLogin);
   elements.prevPage.addEventListener("click", async () => {
     state.pageNumber -= 1;
     await renderCurrentPage();
