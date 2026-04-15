@@ -13,10 +13,11 @@ test("renderer shell exposes phase one entry points", () => {
   assert.match(html, /aria-label="앱 상태"/);
 });
 
-test("phase one exposes PDF controls while login remains gated", () => {
+test("phase one exposes PDF controls and Microsoft login entry", () => {
   assert.match(html, /<canvas id="pdf-canvas" aria-label="PDF 페이지"><\/canvas>/);
   assert.match(html, /<button class="primary-action" id="open-pdf" type="button">PDF 열기<\/button>/);
-  assert.match(html, /<button class="secondary-action" id="login-button" type="button" disabled>Microsoft 로그인<\/button>/);
+  assert.match(html, /<button class="secondary-action" id="login-button" type="button">Microsoft 로그인<\/button>/);
+  assert.match(html, /id="auth-status"/);
   assert.match(html, /id="prev-page"[^>]+disabled/);
   assert.match(html, /id="next-page"[^>]+disabled/);
 });
