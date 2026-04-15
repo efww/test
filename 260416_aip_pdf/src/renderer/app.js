@@ -1,4 +1,5 @@
 import * as pdfjsLib from "../../node_modules/pdfjs-dist/build/pdf.mjs";
+import { installReadOnlyGuards } from "./readOnlyGuards.js";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = "../../node_modules/pdfjs-dist/build/pdf.worker.mjs";
 
@@ -20,6 +21,7 @@ const elements = {
   zoomOut: document.querySelector("#zoom-out"),
   pageStatus: document.querySelector("#page-status"),
   zoomStatus: document.querySelector("#zoom-status"),
+  readonlyStatus: document.querySelector("#readonly-status"),
 };
 
 function setViewerMessage(message) {
@@ -84,6 +86,11 @@ async function boot() {
   document.querySelector("#app-version").textContent = info.version;
   document.querySelector("#app-platform").textContent = info.platform;
   document.querySelector("#app-build").textContent = info.buildTime;
+  installReadOnlyGuards({
+    onBlockedAction: ({ action }) => {
+      elements.readonlyStatus.textContent = `${action} 차단됨`;
+    },
+  });
   elements.openPdf.addEventListener("click", openPdf);
   elements.prevPage.addEventListener("click", async () => {
     state.pageNumber -= 1;
