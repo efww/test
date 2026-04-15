@@ -1,0 +1,147 @@
+:root {
+  --bg-page: #ffffff;
+  --bg-soft: #f5f5f7;
+  --text-primary: #1d1d1f;
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --text-muted: rgba(0, 0, 0, 0.56);
+  --accent: #0071e3;
+  --accent-hover: #0a84ff;
+  --line-soft: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  min-width: 900px;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+}
+
+.hero-panel,
+.status-panel {
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 8px;
+}
+
+.hero-panel {
+  display: flex;
+  min-height: 620px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h1 {
+  max-width: 760px;
+  margin: 0;
+  font-family: "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.lead {
+  max-width: 720px;
+  margin: 24px 0 0;
+  color: var(--text-secondary);
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+button {
+  min-width: 132px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--line-soft);
+  padding: 0 18px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.primary-action {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.secondary-action {
+  background: #ffffff;
+  color: var(--text-primary);
+}
+
+.status-panel {
+  align-self: start;
+  padding: 28px;
+}
+
+.status-panel h2 {
+  margin: 0 0 22px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+dl {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+dt {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
