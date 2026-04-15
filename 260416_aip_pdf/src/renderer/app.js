@@ -24,6 +24,7 @@ const elements = {
   readonlyStatus: document.querySelector("#readonly-status"),
   loginButton: document.querySelector("#login-button"),
   authStatus: document.querySelector("#auth-status"),
+  auditPath: document.querySelector("#audit-path"),
 };
 
 function setViewerMessage(message) {
@@ -65,6 +66,14 @@ async function openPdf() {
 
   try {
     setViewerMessage("PDF를 여는 중입니다.");
+    if (result.blocked) {
+      state.document = null;
+      state.pageNumber = 1;
+      elements.documentTitle.textContent = result.fileName || "차단된 PDF";
+      setViewerMessage(result.message);
+      updateControls();
+      return;
+    }
     const data = new Uint8Array(result.bytes);
     state.document = await pdfjsLib.getDocument({ data }).promise;
     state.pageNumber = 1;
@@ -98,10 +107,12 @@ async function boot() {
   document.querySelector("#app-version").textContent = info.version;
   document.querySelector("#app-platform").textContent = info.platform;
   document.querySelector("#app-build").textContent = info.buildTime;
+  elements.auditPath.textContent = await window.gateway.getAuditLogPath();
   renderAuthStatus(await window.gateway.getAuthStatus());
   installReadOnlyGuards({
     onBlockedAction: ({ action }) => {
       elements.readonlyStatus.textContent = `${action} 차단됨`;
+      window.gateway.recordBlockedAction({ action, source: "renderer" }).catch(() => {});
     },
   });
   elements.openPdf.addEventListener("click", openPdf);

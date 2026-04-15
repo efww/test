@@ -27,5 +27,14 @@ test("main process limits open dialog to pdf files", () => {
 test("preload exposes Microsoft login status without token APIs", () => {
   assert.match(preload, /getAuthStatus/);
   assert.match(preload, /startMicrosoftLogin/);
+  assert.match(preload, /recordBlockedAction/);
+  assert.match(preload, /getAuditLogPath/);
   assert.doesNotMatch(preload, /token/i);
+});
+
+test("main process classifies PDFs before returning bytes to renderer", () => {
+  assert.match(main, /inspectPdfBytes/);
+  assert.match(main, /classification: inspection\.kind/);
+  assert.match(main, /result: inspection\.blocked \? "blocked" : "allowed"/);
+  assert.match(main, /if \(inspection\.blocked\)/);
 });
