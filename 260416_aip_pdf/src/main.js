@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, dialog, ipcMain } = require("electron");
+const fs = require("node:fs/promises");
 const path = require("node:path");
 const { getAppInfo } = require("./shared/appInfo");
 
@@ -25,6 +26,28 @@ function createWindow() {
 
 app.whenReady().then(() => {
   ipcMain.handle("app:getInfo", () => getAppInfo({ appVersion: app.getVersion() }));
+  ipcMain.handle("pdf:openFile", async () => {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      title: "PDF 열기",
+      properties: ["openFile"],
+      filters: [{ name: "PDF", extensions: ["pdf"] }],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+      return { canceled: true };
+    }
+
+    const filePath = result.filePaths[0];
+    const buffer = await fs.readFile(filePath);
+
+    return {
+      canceled: false,
+      fileName: path.basename(filePath),
+      fileSize: buffer.byteLength,
+      bytes: buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength),
+    };
+  });
+
   createWindow();
 
   app.on("activate", () => {

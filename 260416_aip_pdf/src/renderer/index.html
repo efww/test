@@ -8,16 +8,33 @@
   </head>
   <body>
     <main class="app-shell">
-      <section class="hero-panel">
-        <p class="eyebrow">1차 기술검증</p>
-        <h1>AIP PDF Gateway PoC</h1>
-        <p class="lead">
-          회사 문서에 접근하지 않고 일반 PDF 뷰어, 읽기 전용 UX, 로그인 골격을 검증하는 데스크톱 앱입니다.
-        </p>
-        <div class="actions">
-          <button class="primary-action" type="button" disabled>PDF 열기</button>
-          <button class="secondary-action" type="button" disabled>Microsoft 로그인</button>
+      <section class="viewer-panel" aria-label="PDF 뷰어">
+        <header class="toolbar">
+          <div class="document-title">
+            <p class="eyebrow">1차 기술검증</p>
+            <h1 id="document-title">AIP PDF Gateway PoC</h1>
+          </div>
+          <div class="toolbar-actions">
+            <button class="primary-action" id="open-pdf" type="button">PDF 열기</button>
+            <button class="secondary-action" id="login-button" type="button" disabled>Microsoft 로그인</button>
+          </div>
+        </header>
+
+        <div class="viewer-stage" id="viewer-stage">
+          <div class="empty-state" id="empty-state">
+            <p>PDF를 선택하면 여기에 표시됩니다.</p>
+          </div>
+          <canvas id="pdf-canvas" aria-label="PDF 페이지"></canvas>
         </div>
+
+        <footer class="page-controls" aria-label="페이지 제어">
+          <button class="icon-button" id="prev-page" type="button" aria-label="이전 페이지" disabled>&larr;</button>
+          <span id="page-status">0 / 0</span>
+          <button class="icon-button" id="next-page" type="button" aria-label="다음 페이지" disabled>&rarr;</button>
+          <button class="icon-button" id="zoom-out" type="button" aria-label="축소" disabled>-</button>
+          <span id="zoom-status">100%</span>
+          <button class="icon-button" id="zoom-in" type="button" aria-label="확대" disabled>+</button>
+        </footer>
       </section>
 
       <aside class="status-panel" aria-label="앱 상태">
@@ -42,6 +59,6 @@
         </dl>
       </aside>
     </main>
-    <script src="./app.js"></script>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>
