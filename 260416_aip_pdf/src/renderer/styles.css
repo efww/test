@@ -1,0 +1,211 @@
+:root {
+  --bg-page: #ffffff;
+  --bg-soft: #f5f5f7;
+  --text-primary: #1d1d1f;
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --text-muted: rgba(0, 0, 0, 0.56);
+  --accent: #0071e3;
+  --accent-hover: #0a84ff;
+  --line-soft: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  min-width: 900px;
+  user-select: none;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+}
+
+.viewer-panel,
+.status-panel {
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 8px;
+}
+
+.viewer-panel {
+  display: flex;
+  min-height: 620px;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 92px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-title {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-family: "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+}
+
+button {
+  min-width: 132px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--line-soft);
+  padding: 0 18px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.primary-action {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.secondary-action {
+  background: #ffffff;
+  color: var(--text-primary);
+}
+
+.viewer-stage {
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  flex: 1;
+  padding: 28px;
+  overflow: auto;
+  background: var(--bg-soft);
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  width: min(520px, 80%);
+  min-height: 240px;
+  border: 1px dashed rgba(0, 0, 0, 0.18);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--text-muted);
+  font-size: 17px;
+}
+
+#pdf-canvas {
+  display: none;
+  max-width: 100%;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+  -webkit-user-drag: none;
+}
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 64px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.icon-button {
+  min-width: 38px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+
+.readonly-status {
+  min-width: 88px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.status-panel {
+  align-self: start;
+  padding: 28px;
+}
+
+.status-panel h2 {
+  margin: 0 0 22px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+dl {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+dt {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
